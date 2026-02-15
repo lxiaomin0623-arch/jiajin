@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>佳景</title>
     
     <!-- 【一加兼容】禁止自动调整字体大小 -->
@@ -62,84 +62,6 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
-    <!-- Capacitor Core -->
-    <script src="capacitor.js"></script>
-    <script>
-        // 检查Capacitor环境
-        console.log('Capacitor环境检查:', {
-            Capacitor: window.Capacitor,
-            Plugins: window.Capacitor ? window.Capacitor.Plugins : null
-        });
-        
-        // 等待Capacitor初始化完成
-        if (window.Capacitor) {
-            window.Capacitor.ready().then(() => {
-                console.log('Capacitor初始化完成');
-                console.log('Capacitor Plugins:', window.Capacitor.Plugins);
-            });
-        }
-    </script>
-    
-    <!-- 【防闪退】全局错误捕获和内存监控 -->
-    <script>
-        // 【Vivo兼容】检测Vivo/iQOO手机
-        const isVivo = /vivo|VIVO|iQOO|iqoo/i.test(navigator.userAgent);
-        if (isVivo) {
-            console.log('【Vivo兼容】检测到Vivo/iQOO手机，启用兼容模式');
-        }
-        
-        // 【性能优化】日志控制 - 减少控制台输出防止内存泄漏
-        // 【Vivo兼容】Vivo手机强制关闭日志
-        const DEBUG_MODE = false && !isVivo; // 设置为true开启详细日志，false关闭
-
-        // 保存原始console方法
-        const originalConsole = {
-            log: console.log,
-            warn: console.warn,
-            error: console.error,
-            info: console.info
-        };
-
-        // 重写console方法，完全禁用日志输出以防止内存泄漏和性能问题
-        console.log = function(...args) {};
-        console.warn = function(...args) {};
-        console.error = function(...args) {};
-        console.info = function(...args) {};
-        console.debug = function(...args) {};
-
-        // 全局错误捕获
-        window.addEventListener('error', function(event) {
-            originalConsole.error('【全局错误捕获】', {
-                message: event.message,
-                filename: event.filename,
-                lineno: event.lineno,
-                colno: event.colno,
-                error: event.error?.stack
-            });
-            // 防止闪退：不阻止默认行为，但记录错误
-            return false;
-        });
-
-        // 捕获未处理的 Promise 错误
-        window.addEventListener('unhandledrejection', function(event) {
-            event.preventDefault();
-        });
-
-        // 【性能优化】禁用内存监控以减少开销
-        // 如需调试可重新启用
-
-        // 页面可见性变化时的处理
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                // 页面隐藏时清理资源
-                if (window.gc) {
-                    try {
-                        window.gc();
-                    } catch (e) {}
-                }
-            }
-        });
-    </script>
     
     <style>
         * {
@@ -13926,6 +13848,16 @@
         from { opacity: 0; transform: translateY(-10px); }
         to { opacity: 1; transform: translateY(0); }
     }
+</style>
+<style>
+html,body{
+  max-width:100%;
+  overflow-x:hidden;
+}
+img,canvas{
+  max-width:100%;
+  height:auto;
+}
 </style>
 </head>
 <body>
